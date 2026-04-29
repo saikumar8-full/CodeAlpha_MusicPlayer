@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aura Music Player</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+  <div id="toast"></div>
+
+  <div class="app">
+
+    <!-- Header -->
+    <header class="app-header">
+      <span class="logo">♬ Aura</span>
+      <span class="tagline">Your Music, Your Mood</span>
+    </header>
+
+    <!-- Player Card -->
+    <div class="player-card">
+
+      <div class="now-playing-label">NOW PLAYING</div>
+
+      <!-- Album + Info -->
+      <div class="album-section">
+        <div class="album-art" id="albumArt">🌙</div>
+        <div class="song-info">
+          <div class="song-title"  id="songTitle">Neon Dreams</div>
+          <div class="song-artist" id="songArtist">Synthwave Collective</div>
+          <span class="track-num"  id="trackNum">1 / 4</span>
+        </div>
+      </div>
+
+      <!-- Visualizer -->
+      <canvas id="vizCanvas"></canvas>
+
+      <!-- Progress -->
+      <div class="progress-section">
+        <span class="time" id="curTime">0:00</span>
+        <input type="range" id="progSlider" min="0" max="100" value="0" style="--pct:0%"/>
+        <span class="time" id="durTime">--:--</span>
+      </div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button class="ctrl-btn icon-btn" id="shuffleBtn" title="Shuffle">
+          <svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+        </button>
+        <button class="ctrl-btn icon-btn" id="prevBtn" title="Previous">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button class="ctrl-btn play-btn" id="playBtn" title="Play/Pause">
+          <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg id="pauseIcon" viewBox="0 0 24 24" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+        <button class="ctrl-btn icon-btn" id="nextBtn" title="Next">
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+        <button class="ctrl-btn icon-btn" id="repeatBtn" title="Repeat">
+          <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+        </button>
+      </div>
+
+      <!-- Volume + Speed -->
+      <div class="bottom-row">
+        <button class="mute-btn" id="muteBtn" title="Mute">🔊</button>
+        <input type="range" id="volSlider" min="0" max="1" step="0.01" value="0.75" style="--pct:75%"/>
+        <span class="vol-pct" id="volPct">75%</span>
+        <label class="speed-label">Speed</label>
+        <select id="speedSelect" class="speed-select">
+          <option value="0.5">0.5×</option>
+          <option value="0.75">0.75×</option>
+          <option value="1" selected>1×</option>
+          <option value="1.25">1.25×</option>
+          <option value="1.5">1.5×</option>
+          <option value="2">2×</option>
+        </select>
+      </div>
+
+    </div><!-- /.player-card -->
+
+    <!-- Playlist -->
+    <div class="playlist-card">
+      <div class="pl-header">
+        <span class="pl-title">Playlist</span>
+        <div class="pl-right">
+          <span class="pl-count" id="plCount">4 songs</span>
+          <div class="autoplay-wrap">
+            <span class="auto-lbl">Autoplay</span>
+            <button class="toggle on" id="autoTog"></button>
+          </div>
+        </div>
+      </div>
+      <ul class="pl-list" id="plList"></ul>
+    </div>
+
+    <!-- Keyboard hints -->
+    <div class="kbd-hints">
+      <span><kbd>Space</kbd> Play/Pause</span>
+      <span><kbd>→</kbd> Next</span>
+      <span><kbd>←</kbd> Prev</span>
+      <span><kbd>↑↓</kbd> Volume</span>
+      <span><kbd>M</kbd> Mute</span>
+    </div>
+
+  </div><!-- /.app -->
+
+  <audio id="audio"></audio>
+  <script src="script.js"></script>
+</body>
+</html>
